@@ -24,10 +24,10 @@ function getRandomCity() {
     return cities[randomIndex].name;
 }
 
-
-router.get('/api/cities', (req, res) => res.json(cities));
-router.get('/api/vehicles', (req, res) => res.json(vehicles));
-router.post('/api/results', (req, res) => {
+router.get('/', (req, res) => { res.send('App is running') })
+router.get('/cities', (req, res) => res.json(cities));
+router.get('/vehicles', (req, res) => res.json(vehicles));
+router.post('/results', (req, res) => {
     const { copSelections } = req.body;
 
     const fugitiveLocation = getRandomCity
