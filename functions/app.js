@@ -34,5 +34,5 @@ router.post('/results', (req, res) => {
     res.json(copSelections)
 })
 // app.listen(3000, () => console.log('Server listening on port 3000'));
-app.use("/.netlify/functions/app", router);
+app.use("/.netlify/functions/api", router);
 module.exports.handler = serverless(app);
