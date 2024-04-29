@@ -1,14 +1,15 @@
-const express = require('express');
+const express = require("express");
+const PORT = process.env.PORT || 3001;
 const app = express();
-const serverless = require("serverless-http");
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+
+
 const router = express.Router();
 var cors = require('cors')
 // app.use(express.json());
 app.use(cors())
-
 let cities = [
     { id: 0, name: 'Yapkashnagar', distance: 60, isAssigned: false },
     { id: 1, name: 'Lihaspur', distance: 50, isAssigned: false },
@@ -32,10 +33,10 @@ function getRandomCity() {
 }
 // console.log(getRandomCity());
 
-router.get('/', (req, res) => { res.send('App is running') })
-router.get('/cities', (req, res) => res.json(cities));
-router.get('/vehicles', (req, res) => res.json(vehicles));
-router.post('/cities', (req, res) => {
+app.get('/', (req, res) => { res.send('App is running') })
+app.get('/cities', (req, res) => res.json(cities));
+app.get('/vehicles', (req, res) => res.json(vehicles));
+app.post('/cities', (req, res) => {
     // console.log(req.body);
     let { id, isAssigned } = req.body;
 
@@ -48,7 +49,7 @@ router.post('/cities', (req, res) => {
     res.json('City successfully updated')
 
 });
-router.post('/results', (req, res) => {
+app.post('/results', (req, res) => {
     const { copSelections } = req.body;
     if (!copSelections) {
         // Handle invalid request
@@ -86,7 +87,12 @@ router.post('/results', (req, res) => {
     }
 })
 
-// app.listen(3000, () => console.log('Server listening on port 3000'));
-app.use("/.netlify/functions/app", router);
-module.exports.handler = serverless(app);
+// app.get("/", (req, res) => res.send("Main page"));
 
+// app.get("/api", (req, res) => {
+//     res.json({ message: "Hello from server!" });
+// });
+
+// app.listen(PORT, () => {
+//     console.log(`Server listening on ${PORT}`);
+// });
